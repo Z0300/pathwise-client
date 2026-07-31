@@ -55,10 +55,10 @@ export const useCreateFlowEdge = (flowId: number) => {
   });
 };
 
-export const useEnumeratePaths = (flowId: number) => {
+export const useEnumeratePaths = (flowId: number | null) => {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: () => api.enumeratePaths(flowId),
+    mutationFn: (id: number) => api.enumeratePaths(id),
     onSuccess: (data) => qc.setQueryData(["flows", flowId, "paths"], data),
   });
 };

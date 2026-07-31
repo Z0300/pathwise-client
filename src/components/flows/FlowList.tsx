@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "@tanstack/react-router";
 import { useFlows } from "../../api/queries";
 import type { Flow, SearchablePageRequest } from "../../types/flow";
 import { FlowIcon } from "./FlowIcon";
@@ -12,6 +13,9 @@ import {
   MoreVertical,
   CheckCircle2,
   Cloud,
+  Network,
+  ArrowRight,
+  List,
 } from "lucide-react";
 
 function formatDate(iso: string) {
@@ -184,7 +188,7 @@ export default function FlowList() {
           <div className="flex items-center gap-2">
             {/* Filter button */}
             <button
-              className="btn btn-ghost btn-sm gap-2 text-base-content/70 hover:text-base-content"
+              className="btn btn-ghost border-none btn-sm gap-2 text-base-content/70 hover:bg-base-200/50 hover:text-base-content"
               aria-label="Filter flows"
             >
               <Filter className="w-4 h-4" />
@@ -192,7 +196,7 @@ export default function FlowList() {
             </button>
             {/* Sort button */}
             <button
-              className="btn btn-ghost btn-sm gap-2 text-base-content/70 hover:text-base-content"
+              className="btn btn-ghost border-none btn-sm gap-2 text-base-content/70 hover:bg-base-200/50 hover:text-base-content"
               aria-label="Sort flows"
             >
               <ArrowUpDown className="w-4 h-4" />
@@ -265,17 +269,56 @@ export default function FlowList() {
                     <td className="py-4 px-6 text-right">
                       <div className="flex items-center justify-end gap-1">
                         <button
-                          className="btn btn-ghost btn-sm btn-square text-base-content/60 hover:text-base-content"
+                          className="btn btn-ghost border-none btn-sm btn-square text-base-content/60 hover:bg-[#D2531E]/10 hover:text-[#D2531E]"
                           aria-label="Edit flow"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
-                        <button
-                          className="btn btn-ghost btn-sm btn-square text-base-content/60 hover:text-base-content"
-                          aria-label="More options"
-                        >
-                          <MoreVertical className="w-4 h-4" />
-                        </button>
+                        <div className="dropdown dropdown-end">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost border-none btn-sm btn-square text-base-content/60 hover:bg-blue-500/10 hover:text-blue-500"
+                            aria-label="More options"
+                          >
+                            <MoreVertical className="w-4 h-4" />
+                          </div>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content z-100 menu p-2 shadow-sm border border-base-200 bg-base-100 rounded-box w-40 mt-1"
+                          >
+                            <li>
+                              <Link
+                                to="/flows/$flowId/nodes"
+                                params={{ flowId: String(flow.id) }}
+                                className="text-[13px] text-base-content/70 hover:text-base-content"
+                              >
+                                <Network className="w-4 h-4" />
+                                Add Nodes
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/flows/$flowId/edges"
+                                params={{ flowId: String(flow.id) }}
+                                className="text-[13px] text-base-content/70 hover:text-base-content"
+                              >
+                                <ArrowRight className="w-4 h-4" />
+                                Add Edges
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/flows/$flowId/enumerate"
+                                params={{ flowId: String(flow.id) }}
+                                className="text-[13px] text-base-content/70 hover:text-base-content"
+                              >
+                                <List className="w-4 h-4" />
+                                Enumerate
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </td>
                   </tr>

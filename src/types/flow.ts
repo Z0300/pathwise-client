@@ -34,6 +34,8 @@ export interface PathStep {
 export interface EnumeratedPath {
   id: number;
   flowId: number;
+  label: string;
+  probability: number;
   pathSequence: PathStep[];
   createdAt: string;
 }
