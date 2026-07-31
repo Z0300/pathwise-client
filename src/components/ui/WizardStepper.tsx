@@ -1,5 +1,3 @@
-import { Link } from "@tanstack/react-router";
-
 interface WizardStepperProps {
   currentStep: number;
 }
@@ -19,12 +17,17 @@ export function WizardStepper({ currentStep }: WizardStepperProps) {
           const stepNum = idx + 1;
           const isActiveOrPast = stepNum <= currentStep;
           const isCurrent = stepNum === currentStep;
-          
+          const isPast = stepNum < currentStep;
+
+          let labelClass = "text-base-content/50";
+          if (isCurrent) labelClass = "font-bold text-[#D2531E]";
+          if (isPast) labelClass = "font-bold text-base-content";
+
           return (
             <li
               key={step.label}
-              data-content={stepNum}
-              className={`step ${isActiveOrPast ? "step-primary" : ""} ${isCurrent ? "font-bold text-[#D2531E]" : "text-base-content/50"}`}
+              data-content={isPast ? "✓" : stepNum}
+              className={`step ${isActiveOrPast ? "step-primary" : ""} ${labelClass}`}
             >
               {step.label}
             </li>
