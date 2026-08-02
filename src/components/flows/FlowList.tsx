@@ -268,12 +268,14 @@ export default function FlowList() {
                     {/* Actions — daisyUI ghost buttons */}
                     <td className="py-4 px-6 text-right">
                       <div className="flex items-center justify-end gap-1">
-                        <button
+                        <Link
+                          to="/flows/$flowId/edit"
+                          params={{ flowId: String(flow.id) }}
                           className="btn btn-ghost border-none btn-sm btn-square text-base-content/60 hover:bg-[#D2531E]/10 hover:text-[#D2531E]"
                           aria-label="Edit flow"
                         >
                           <Pencil className="w-4 h-4" />
-                        </button>
+                        </Link>
                         <div className="dropdown dropdown-end">
                           <div
                             tabIndex={0}

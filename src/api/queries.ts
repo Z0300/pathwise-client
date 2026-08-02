@@ -23,6 +23,17 @@ export const useCreateFlow = () => {
   });
 };
 
+export const useUpdateFlow = (id: number) => {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: api.updateFlow,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["flows"] });
+      qc.invalidateQueries({ queryKey: ["flows", id] });
+    },
+  });
+};
+
 export const useFlowNodes = (flowId: number) =>
   useQuery({
     queryKey: ["flows", flowId, "nodes"],

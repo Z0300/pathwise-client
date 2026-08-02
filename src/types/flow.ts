@@ -7,6 +7,17 @@ export interface Flow {
   createdAt: string;
 }
 
+export interface FlowCreate {
+  name: string;
+  description: string;
+}
+
+export interface FlowUpdate {
+  id: number;
+  name: string;
+  description: string;
+}
+
 export interface FlowNode {
   id: number;
   flowId: number;
@@ -40,6 +51,12 @@ export interface EnumeratedPath {
   createdAt: string;
 }
 
+export interface ApiResponse<T> {
+  data: T;
+  message?: string;
+  success?: boolean;
+}
+
 export interface PageResponse<T> {
   data: T;
   message?: string;
@@ -65,10 +82,17 @@ export const getFlows = (request: SearchablePageRequest) =>
   apiClient
     .get<PageResponse<Flow[]>>("/flows", { params: request })
     .then((r) => r.data);
+
 export const getFlow = (id: number) =>
-  apiClient.get<{ data: Flow }>(`/flows/${id}`).then((r) => r.data.data);
-export const createFlow = (payload: { name: string; description: string }) =>
-  apiClient.post<{ data: Flow }>("/flows", payload).then((r) => r.data.data);
+  apiClient.get<ApiResponse<Flow>>(`/flows/${id}`).then((r) => r.data.data);
+
+export const createFlow = (payload: FlowCreate) =>
+  apiClient.post<ApiResponse<Flow>>("/flows", payload).then((r) => r.data.data);
+
+export const updateFlow = (payload: FlowUpdate) =>
+  apiClient
+    .patch<ApiResponse<Flow>>(`/flows/${payload.id}`, payload)
+    .then((r) => r.data.data);
 
 // Nodes
 export const getFlowNodes = (flowId: number) =>
@@ -83,7 +107,7 @@ export const createFlowNode = (payload: Omit<FlowNode, "id">) =>
 // Edges
 export const getFlowEdges = (flowId: number) =>
   apiClient
-    .get<{ data: FlowEdge[] }>(`/flow-edges/flow/${flowId}`)
+    .get<{ data: FlowEdge[] }>(`/flows/${flowId}/edges`)
     .then((r) => r.data.data);
 export const createFlowEdge = (payload: Omit<FlowEdge, "id">) =>
   apiClient
