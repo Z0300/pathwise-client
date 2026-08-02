@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import CreateFlowStep from "../../components/flows/CreateFlowStep";
+import { CreateFlowRoute } from "../../components/flows/CreateFlowPage";
 
 export const Route = createFileRoute("/flows/new")({
   component: RouteComponent,
@@ -9,7 +9,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <CreateFlowStep
+    <CreateFlowRoute
       onCreated={(flowId) =>
         navigate({
           to: "/flows/$flowId/nodes",

@@ -14,6 +14,7 @@ import { Route as FlowsNewRouteImport } from './routes/flows/new'
 import { Route as FlowsFlowIdIndexRouteImport } from './routes/flows/$flowId/index'
 import { Route as FlowsFlowIdNodesRouteImport } from './routes/flows/$flowId/nodes'
 import { Route as FlowsFlowIdEnumerateRouteImport } from './routes/flows/$flowId/enumerate'
+import { Route as FlowsFlowIdEditRouteImport } from './routes/flows/$flowId/edit'
 import { Route as FlowsFlowIdEdgesRouteImport } from './routes/flows/$flowId/edges'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const FlowsFlowIdEnumerateRoute = FlowsFlowIdEnumerateRouteImport.update({
   path: '/flows/$flowId/enumerate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlowsFlowIdEditRoute = FlowsFlowIdEditRouteImport.update({
+  id: '/flows/$flowId/edit',
+  path: '/flows/$flowId/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FlowsFlowIdEdgesRoute = FlowsFlowIdEdgesRouteImport.update({
   id: '/flows/$flowId/edges',
   path: '/flows/$flowId/edges',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/flows/new': typeof FlowsNewRoute
   '/flows/$flowId/edges': typeof FlowsFlowIdEdgesRoute
+  '/flows/$flowId/edit': typeof FlowsFlowIdEditRoute
   '/flows/$flowId/enumerate': typeof FlowsFlowIdEnumerateRoute
   '/flows/$flowId/nodes': typeof FlowsFlowIdNodesRoute
   '/flows/$flowId/': typeof FlowsFlowIdIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/flows/new': typeof FlowsNewRoute
   '/flows/$flowId/edges': typeof FlowsFlowIdEdgesRoute
+  '/flows/$flowId/edit': typeof FlowsFlowIdEditRoute
   '/flows/$flowId/enumerate': typeof FlowsFlowIdEnumerateRoute
   '/flows/$flowId/nodes': typeof FlowsFlowIdNodesRoute
   '/flows/$flowId': typeof FlowsFlowIdIndexRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/flows/new': typeof FlowsNewRoute
   '/flows/$flowId/edges': typeof FlowsFlowIdEdgesRoute
+  '/flows/$flowId/edit': typeof FlowsFlowIdEditRoute
   '/flows/$flowId/enumerate': typeof FlowsFlowIdEnumerateRoute
   '/flows/$flowId/nodes': typeof FlowsFlowIdNodesRoute
   '/flows/$flowId/': typeof FlowsFlowIdIndexRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/flows/new'
     | '/flows/$flowId/edges'
+    | '/flows/$flowId/edit'
     | '/flows/$flowId/enumerate'
     | '/flows/$flowId/nodes'
     | '/flows/$flowId/'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/flows/new'
     | '/flows/$flowId/edges'
+    | '/flows/$flowId/edit'
     | '/flows/$flowId/enumerate'
     | '/flows/$flowId/nodes'
     | '/flows/$flowId'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/flows/new'
     | '/flows/$flowId/edges'
+    | '/flows/$flowId/edit'
     | '/flows/$flowId/enumerate'
     | '/flows/$flowId/nodes'
     | '/flows/$flowId/'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FlowsNewRoute: typeof FlowsNewRoute
   FlowsFlowIdEdgesRoute: typeof FlowsFlowIdEdgesRoute
+  FlowsFlowIdEditRoute: typeof FlowsFlowIdEditRoute
   FlowsFlowIdEnumerateRoute: typeof FlowsFlowIdEnumerateRoute
   FlowsFlowIdNodesRoute: typeof FlowsFlowIdNodesRoute
   FlowsFlowIdIndexRoute: typeof FlowsFlowIdIndexRoute
@@ -145,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlowsFlowIdEnumerateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flows/$flowId/edit': {
+      id: '/flows/$flowId/edit'
+      path: '/flows/$flowId/edit'
+      fullPath: '/flows/$flowId/edit'
+      preLoaderRoute: typeof FlowsFlowIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/flows/$flowId/edges': {
       id: '/flows/$flowId/edges'
       path: '/flows/$flowId/edges'
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FlowsNewRoute: FlowsNewRoute,
   FlowsFlowIdEdgesRoute: FlowsFlowIdEdgesRoute,
+  FlowsFlowIdEditRoute: FlowsFlowIdEditRoute,
   FlowsFlowIdEnumerateRoute: FlowsFlowIdEnumerateRoute,
   FlowsFlowIdNodesRoute: FlowsFlowIdNodesRoute,
   FlowsFlowIdIndexRoute: FlowsFlowIdIndexRoute,
